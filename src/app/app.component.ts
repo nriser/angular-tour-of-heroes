@@ -11,9 +11,11 @@ export class Hero {
     <h1>{{title}}</h1>
     <h2>My Heroes</h2>
     <ul class="heroes">
-      <li *ngFor="let hero of heroes" (click)="onSelect(hero)">
-        <span class="badge">{{hero.id}}</span> {{hero.name}}
-      </li>
+    <li *ngFor="let hero of heroes"
+      [class.selected]="hero === selectedHero"
+      (click)="onSelect(hero)">
+      <span class="badge">{{hero.id}}</span> {{hero.name}}
+    </li>
     </ul>
     <div *ngIf="selectedHero">
       <h2>{{selectedHero.name}} details!</h2>
@@ -103,11 +105,8 @@ const HEROES: Hero[] = [
   { id: 20, name: 'Tornado' }
 ];
 
-// When the app loads, selectedHero is undefined. The selected hero is initialized when the user clicks a hero's name. Angular can't display properties of the undefined selectedHero and throws the following error, visible in the browser's console: Cannot read property 'name' of undefined in [null]
-// Although selectedHero.name is displayed in the template, you must keep the hero detail out of the DOM until there is a selected hero.
-// When there is no selected hero, the ngIf directive removes the hero detail HTML from the DOM. There are no hero detail elements or bindings to worry about.
-// When the user picks a hero, selectedHero becomes defined and ngIf puts the hero detail content into the DOM and evaluates the nested bindings.
-
+// A class binding is a good way to add or remove a single class.
+// When the expression (hero === selectedHero) is true, Angular adds the selected CSS class. When the expression is false, Angular removes the selected class.
 
 /*
 Copyright 2017 Google Inc. All Rights Reserved.
