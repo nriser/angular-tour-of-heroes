@@ -32,18 +32,77 @@ const HEROES: Hero[] = [
           <span class="badge">{{hero.id}}</span> {{hero.name}}
         </li>
       </ul>
-    `
+    <div>
+    <h2>{{hero.name}} details!</h2>
+    <div><label>id: </label>{{hero.id}}</div>
+    <div>
+      <label>name: {{hero.name}}</label>
+      <input [(ngModel)]="hero.name" placeholder="name">
+    </div>
+    `,
+    styles: [`
+    .selected {
+      background-color: #CFD8DC !important;
+      color: white;
+    }
+    .heroes {
+      margin: 0 0 2em 0;
+      list-style-type: none;
+      padding: 0;
+      width: 15em;
+    }
+    .heroes li {
+      cursor: pointer;
+      position: relative;
+      left: 0;
+      background-color: #EEE;
+      margin: .5em;
+      padding: .3em 0;
+      height: 1.6em;
+      border-radius: 4px;
+    }
+    .heroes li.selected:hover {
+      background-color: #BBD8DC !important;
+      color: white;
+    }
+    .heroes li:hover {
+      color: #607D8B;
+      background-color: #DDD;
+      left: .1em;
+    }
+    .heroes .text {
+      position: relative;
+      top: -3px;
+    }
+    .heroes .badge {
+      display: inline-block;
+      font-size: small;
+      color: white;
+      padding: 0.8em 0.7em 0 0.7em;
+      background-color: #607D8B;
+      line-height: 1em;
+      position: relative;
+      left: -1px;
+      top: -4px;
+      height: 1.8em;
+      margin-right: .8em;
+      border-radius: 4px 0 0 4px;
+    }
+  `]
 })
 export class AppComponent {
   title = 'Tour of Heroes';
   // a public property in AppComponent that exposes the heroes for binding.
+  hero: Hero = {
+    id: 1,
+    name: 'Windstorm'
+  };
   heroes = HEROES; // The heroes type isn't defined because TypeScript infers it from the HEROES array.
 }
 
 
 
 
-// The ngFor directive iterates over the component's heroes array and renders an instance of this template for each hero in that array.
-// The let hero part of the expression identifies hero as the template input variable (create a variable), which holds the CURRENT hero item for each iteration. You can reference this variable within the template to access the current hero's properties.
+// Adding these styles makes the file much longer. In a later page you'll move the styles to a separate file.
 
-// The ngFor directive iterates over the component's heroes array and renders an instance of this template for each hero in that array.
+// When you assign styles to a component, they are scoped to that specific component. These styles apply only to the AppComponent and don't affect the outer HTML.
