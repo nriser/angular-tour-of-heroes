@@ -1,9 +1,5 @@
 import { Component } from '@angular/core';
-
-export class Hero {
-  id: number;
-  name: string;
-}
+import { Hero } from './hero';
 
 @Component({
   selector: 'my-app',
@@ -11,21 +7,16 @@ export class Hero {
     <h1>{{title}}</h1>
     <h2>My Heroes</h2>
     <ul class="heroes">
-    <li *ngFor="let hero of heroes"
-      [class.selected]="hero === selectedHero"
-      (click)="onSelect(hero)">
-      <span class="badge">{{hero.id}}</span> {{hero.name}}
-    </li>
+      <li *ngFor="let hero of heroes"
+        [class.selected]="hero === selectedHero"
+        (click)="onSelect(hero)">
+        <span class="badge">{{hero.id}}</span> {{hero.name}}
+      </li>
     </ul>
-    <div *ngIf="selectedHero">
-      <h2>{{selectedHero.name}} details!</h2>
-      <div><label>id: </label>{{selectedHero.id}}</div>
-      <div>
-        <label>name: </label>
-        <input [(ngModel)]="selectedHero.name" placeholder="name"/>
-      </div>
-    </div>
-  `,
+    <hero-detail [hero]="selectedHero"></hero-detail>
+  `, // Putting square brackets around the hero property, to the left of the equal sign (=), makes it the target of a property binding expression. You must declare a target binding property to be an input property (in hero-detail.component.ts). Otherwise, Angular refuses to bind to that property and throws an error. the @Input decorator tells Angular that this property is public and available for binding by a parent component.
+  // Coordinate the master AppComponent with the HeroDetailComponent by binding the selectedHero property of the AppComponent to the hero property of the HeroDetailComponent. Now every time the selectedHero changes, the HeroDetailComponent gets a new hero to display.
+  // [hero] (from hero-detail component) is set to "selectedHero", which is originally defined as the hero clicked on by user.
   styles: [`
   .selected {
     background-color: #CFD8DC !important;
